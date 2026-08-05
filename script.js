@@ -250,4 +250,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 11. Instagram Deep Linking
+    document.querySelectorAll('.ig-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const username = 'shaistasalam7';
+            
+            // Detect mobile
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                // Try to open Instagram app via deep link
+                window.location.href = `instagram://user?username=${username}`;
+                
+                // Fallback to web if app is not installed
+                setTimeout(() => {
+                    window.open(`https://www.instagram.com/${username}/`, '_blank');
+                }, 1500);
+            } else {
+                // On desktop/laptop, open standard web link
+                window.open(`https://www.instagram.com/${username}/`, '_blank');
+            }
+        });
+    });
+
 });
