@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.ig-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const username = 'shaistasalam7';
+            const username = 'shai.staa_';
             
             // Detect mobile
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
