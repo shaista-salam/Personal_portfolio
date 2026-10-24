@@ -1,0 +1,12 @@
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Legacy backups
+old_index.html
+*.backup
+*.bak
+
+# Temporary / Log files
+*.log
