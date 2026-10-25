@@ -336,6 +336,28 @@ ul {
     color: var(--primary-green);
 }
 
+.nav-cv-pill {
+    padding: 4px 14px;
+    border-radius: 20px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.45);
+    color: #ffffff !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    transition: all 0.25s ease;
+}
+
+.nav-cv-pill:hover {
+    background: var(--primary-green) !important;
+    color: #0d0d0d !important;
+    border-color: var(--primary-green);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
 /* ================= Hero Section ================= */
 .hero-section {
     position: relative;
