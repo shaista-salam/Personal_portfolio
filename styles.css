@@ -759,20 +759,20 @@ ul {
     line-height: 1.6;
 }
 
-/* ================= About Section (Crisp Luxury Alabaster White) ================= */
+/* ================= About Section (Deep Architectural Dark) ================= */
 .about-section {
     padding: 110px 40px;
-    background: #fbfbfd;
-    color: #1a1a1a;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background: #0d0d12;
+    color: #f3f3f3;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .about-section .section-heading {
-    color: #0d0d0f;
+    color: #ffffff;
 }
 
 .about-section .section-description {
-    color: #666666;
+    color: #9ca3af;
 }
 
 .about-grid {
@@ -783,27 +783,28 @@ ul {
 }
 
 .about-text p {
-    color: #333333;
+    color: #d1d5db;
     line-height: 1.85;
     margin-bottom: 22px;
     font-size: 16px;
 }
 
 .about-text .btn-primary {
-    background-color: #0d0d0f;
-    color: #ffffff;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    background-color: var(--primary-green);
+    color: #0b0b0d;
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
 }
 
 .about-text .btn-primary:hover {
-    background-color: #000000;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background-color: #059669;
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
     transform: translateY(-2px);
 }
 
 .about-text .btn-primary i {
-    color: var(--primary-green);
+    color: #0b0b0d;
 }
 
 .skills-grid {
@@ -952,21 +953,21 @@ ul {
     transform: scale(1.05);
 }
 
-/* ================= Creatives Section (Editorial Studio White) ================= */
+/* ================= Creatives Section (Deep Cinema Dark) ================= */
 .creatives-section {
     padding: 110px 40px;
-    background: #fbfbfd;
-    color: #1a1a1a;
+    background: #0d0d12;
+    color: #f3f3f3;
     text-align: center;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .creatives-section .section-heading {
-    color: #0d0d0f;
+    color: #ffffff;
 }
 
 .creatives-section .section-description {
-    color: #666666;
+    color: #9ca3af;
 }
 
 .creatives-grid {
@@ -1131,29 +1132,35 @@ ul {
 
 /* ================= Animations, Haptics & Utilities ================= */
 
-/* Scroll Reveal Animations */
+/* Scroll Reveal Animations (Fail-safe Progressive Enhancement) */
 .reveal-on-scroll {
-    opacity: 0;
-    transform: translateY(35px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
-}
-
-.reveal-on-scroll.revealed {
     opacity: 1;
     transform: translateY(0);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
 }
 
 .reveal-scale {
-    opacity: 0;
-    transform: scale(0.92) translateY(25px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity, transform;
 }
 
+body.js-ready .reveal-on-scroll:not(.revealed) {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+body.js-ready .reveal-scale:not(.revealed) {
+    opacity: 0;
+    transform: scale(0.94) translateY(20px);
+}
+
+.reveal-on-scroll.revealed,
 .reveal-scale.revealed {
-    opacity: 1;
-    transform: scale(1) translateY(0);
+    opacity: 1 !important;
+    transform: scale(1) translateY(0) !important;
 }
 
 /* Stagger Delays */
@@ -1508,8 +1515,8 @@ ul {
 }
 
 .stat-box {
-    background: rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 16px 14px;
     border-radius: 12px;
     text-align: center;
@@ -1521,20 +1528,21 @@ ul {
 
 .stat-box:hover {
     transform: translateY(-2px);
-    border-color: rgba(16, 185, 129, 0.4);
+    border-color: rgba(16, 185, 129, 0.5);
+    background: rgba(16, 185, 129, 0.06);
 }
 
 .stat-number {
     font-family: var(--font-heading);
     font-size: 20px;
-    color: #111;
+    color: var(--primary-green);
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 
 .stat-label {
     font-size: 11px;
-    color: #666;
+    color: #9ca3af;
     margin-top: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1548,17 +1556,18 @@ ul {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border: 1px solid #222;
-    background: transparent;
-    color: #111;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
     transition: all 0.3s;
 }
 
 .btn-outline-dark:hover {
-    background: #111;
-    color: #fff;
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--primary-green);
+    color: var(--primary-green);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 20px rgba(16, 185, 129, 0.25);
 }
 
 /* ================= Technical Skills Matrix Section ================= */

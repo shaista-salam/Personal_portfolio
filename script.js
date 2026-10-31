@@ -4,6 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('js-ready');
 
     /* ==========================================================================
        1. HAPTIC & TACTILE FEEDBACK SYSTEM
@@ -308,11 +309,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, {
             root: null,
-            threshold: 0.12,
-            rootMargin: '0px 0px -40px 0px'
+            threshold: 0.05,
+            rootMargin: '0px 0px 80px 0px'
         });
 
-        revealElements.forEach(el => revealObserver.observe(el));
+        revealElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight + 120) {
+                el.classList.add('revealed');
+            } else {
+                revealObserver.observe(el);
+            }
+        });
     } else {
         // Fallback for older browsers
         revealElements.forEach(el => el.classList.add('revealed'));
@@ -666,10 +674,17 @@ document.addEventListener('DOMContentLoaded', () => {
         copyEmailBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const email = 'shaistasalam7@gmail.com';
+            const originalHtml = copyEmailBtn.innerHTML;
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(email).then(() => {
+                    copyEmailBtn.innerHTML = '<i class="fas fa-check" style="color: #4ade80;"></i> <span style="color: #4ade80;">Copied!</span>';
+                    copyEmailBtn.style.borderColor = '#4ade80';
                     showToast('Email copied: shaistasalam7@gmail.com');
                     haptics.trigger('success');
+                    setTimeout(() => {
+                        copyEmailBtn.innerHTML = originalHtml;
+                        copyEmailBtn.style.borderColor = '';
+                    }, 2500);
                 }).catch(() => {
                     showToast('shaistasalam7@gmail.com');
                 });
@@ -1170,114 +1185,5 @@ document.addEventListener('DOMContentLoaded', () => {
             closeProjectModal();
         }
     });
-    /* ==========================================================================
-       21. CONTACT FORM & INTERACTIVE DISPATCH HANDLERS
-       ========================================================================== */
-    const copyEmailBtn = document.getElementById('copyEmailBtn');
-    if (copyEmailBtn) {
-        copyEmailBtn.addEventListener('click', () => {
-            const emailText = 'shaistasalam7@gmail.com';
-            navigator.clipboard.writeText(emailText).then(() => {
-                const originalHtml = copyEmailBtn.innerHTML;
-                copyEmailBtn.innerHTML = '<i class="fas fa-check" style="color: #4ade80;"></i> <span style="color: #4ade80;">Copied!</span>';
-                copyEmailBtn.style.borderColor = '#4ade80';
-                haptics.trigger('success');
-
-                setTimeout(() => {
-                    copyEmailBtn.innerHTML = originalHtml;
-                    copyEmailBtn.style.borderColor = '';
-                }, 2500);
-            }).catch(() => {
-                window.location.href = `mailto:${emailText}`;
-            });
-        });
-    }
-
-    const contactForm = document.getElementById('contactForm');
-    const sendDirectBtn = document.getElementById('sendDirectBtn');
-    const sendWhatsAppBtn = document.getElementById('sendWhatsAppBtn');
-    const sendEmailBtn = document.getElementById('sendEmailBtn');
-    const formStatus = document.getElementById('formStatus');
-
-    if (sendWhatsAppBtn) {
-        sendWhatsAppBtn.addEventListener('click', () => {
-            const name = document.getElementById('name')?.value.trim() || 'Visitor';
-            const subject = document.getElementById('subject')?.value.trim() || 'Portfolio Inquiry';
-            const message = document.getElementById('message')?.value.trim() || 'Hello Shaista!';
-
-            const waText = encodeURIComponent(`Hi Shaista, my name is ${name}.\nSubject: ${subject}\n\n${message}`);
-            window.open(`https://wa.me/918075110426?text=${waText}`, '_blank');
-            haptics.trigger('light');
-        });
-    }
-
-    if (sendEmailBtn) {
-        sendEmailBtn.addEventListener('click', () => {
-            const name = document.getElementById('name')?.value.trim() || 'Visitor';
-            const email = document.getElementById('email')?.value.trim() || '';
-            const subject = document.getElementById('subject')?.value.trim() || 'Portfolio Inquiry';
-            const message = document.getElementById('message')?.value.trim() || '';
-
-            const mailBody = encodeURIComponent(`Hi Shaista,\n\n${message}\n\nFrom: ${name} (${email})`);
-            window.location.href = `mailto:shaistasalam7@gmail.com?subject=${encodeURIComponent(subject)}&body=${mailBody}`;
-            haptics.trigger('light');
-        });
-    }
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const name = document.getElementById('name')?.value.trim();
-            const email = document.getElementById('email')?.value.trim();
-            const subject = document.getElementById('subject')?.value.trim();
-            const message = document.getElementById('message')?.value.trim();
-
-            if (!name || !email || !message) {
-                if (formStatus) {
-                    formStatus.style.display = 'block';
-                    formStatus.style.background = 'rgba(239, 68, 68, 0.15)';
-                    formStatus.style.border = '1px solid rgba(239, 68, 68, 0.4)';
-                    formStatus.style.color = '#f87171';
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please fill in all required fields.';
-                }
-                return;
-            }
-
-            if (sendDirectBtn) {
-                sendDirectBtn.disabled = true;
-                sendDirectBtn.innerHTML = 'SENDING... <i class="fas fa-spinner fa-spin" style="margin-left: 8px;"></i>';
-            }
-
-            // Client-side confirmation + mail dispatch
-            setTimeout(() => {
-                if (sendDirectBtn) {
-                    sendDirectBtn.disabled = false;
-                    sendDirectBtn.innerHTML = 'MESSAGE SENT <i class="fas fa-check" style="margin-left: 8px;"></i>';
-                }
-
-                if (formStatus) {
-                    formStatus.style.display = 'block';
-                    formStatus.style.background = 'rgba(16, 185, 129, 0.15)';
-                    formStatus.style.border = '1px solid rgba(16, 185, 129, 0.4)';
-                    formStatus.style.color = '#34d399';
-                    formStatus.innerHTML = `<i class="fas fa-check-circle"></i> Thank you, <strong>${name}</strong>! Your inquiry regarding "${subject || 'General Inquiry'}" has been prepared. Shaista will reply to <strong>${email}</strong> shortly.`;
-                }
-
-                // Trigger mail client as reliable transmission
-                const mailBody = encodeURIComponent(`Hi Shaista,\n\n${message}\n\nFrom: ${name} (${email})`);
-                window.location.href = `mailto:shaistasalam7@gmail.com?subject=${encodeURIComponent(`[Portfolio] ${subject}`)}&body=${mailBody}`;
-
-                contactForm.reset();
-                haptics.trigger('success');
-
-                setTimeout(() => {
-                    if (sendDirectBtn) {
-                        sendDirectBtn.innerHTML = 'SEND DIRECT MESSAGE <i class="fas fa-paper-plane" style="margin-left: 8px;"></i>';
-                    }
-                }, 4000);
-            }, 600);
-        });
-    }
 
 });
